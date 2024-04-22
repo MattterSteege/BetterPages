@@ -4,6 +4,12 @@
 ## Overview
 The ASP.NET Core Dynamic Page Loading System is a framework designed to streamline the loading of web pages by dynamically loading content into a base page using partial views. This approach allows for faster loading times and reduced data usage, as only the necessary content is fetched from the server.
 
+![ezgif com-animated-gif-maker](https://github.com/MattterSteege/BetterPages/assets/78482881/bc0201bc-ae0f-4f22-afd3-21e3e144770a)*
+
+As you can see the left column does not change, nor flicker during the page load (even with the Font Awesome icons). The only thing that changes is the content on the right side of the screen.
+
+*This is a personal project for which I developed this system, but this is just **a** use of the system.
+
 ## Features
 
 - **Dynamic Page Loading**: Load only the necessary content of web pages, reducing data transfer and speeding up page load times.
