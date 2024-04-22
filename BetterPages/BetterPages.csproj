@@ -2,111 +2,23 @@
 
     <PropertyGroup>
         <TargetFramework>net7.0</TargetFramework>
-        <RootNamespace>ScheikundeVideos</RootNamespace>
+        <RootNamespace>BetterPages</RootNamespace>
         <UserSecretsId>4d40238e-f7f7-4df9-b365-c0b3e33ab656</UserSecretsId>
         <DockerDefaultTargetOS>Linux</DockerDefaultTargetOS>
-        <DockerComposeProjectPath>..\docker-compose.dcproj</DockerComposeProjectPath>
         <LangVersion>10</LangVersion>
         <ApplicationIcon>wwwroot\favicon.ico</ApplicationIcon>
         <Version>1</Version>
     </PropertyGroup>
 
     <ItemGroup>
-        <_ContentIncludedByDefault Remove="Views\Error\LoadPage.cshtml" />
-        <_ContentIncludedByDefault Remove="wwwroot\lib\chart.min.js" />
-        <_ContentIncludedByDefault Remove="Views\Chart\SampleChart.cshtml" />
-        <_ContentIncludedByDefault Remove="Views\Notities\Bewerk.cshtml" />
-        <_ContentIncludedByDefault Remove="Views\Notities\Notities.cshtml" />
-        <_ContentIncludedByDefault Remove="test-JSON\Zermelo\22-2023_rooster.json" />
-        <_ContentIncludedByDefault Remove="test-JSON\Zermelo\23-2023_rooster.json" />
-        <_ContentIncludedByDefault Remove="test-JSON\Zermelo\24-2023_rooster.json" />
-        <_ContentIncludedByDefault Remove="test-JSON\Zermelo\25-2023_rooster.json" />
-        <_ContentIncludedByDefault Remove="test-JSON\Zermelo\26-2023_rooster.json" />
-        <_ContentIncludedByDefault Remove="test-JSON\Zermelo\27-2023_rooster.json" />
-        <_ContentIncludedByDefault Remove="test-JSON\Zermelo\28-2023_rooster.json" />
-        <_ContentIncludedByDefault Remove="Views\Notitie\AddNotities.cshtml" />
-        <_ContentIncludedByDefault Remove="Views\Notitie\GetNotitie.cshtml" />
-        <_ContentIncludedByDefault Remove="Views\Notitie\Index.cshtml" />
-        <_ContentIncludedByDefault Remove="wwwroot\css\Zermos-Notes\notities.css" />
-        <_ContentIncludedByDefault Remove="wwwroot\css\Zermos-Notes\trix.css" />
-        <_ContentIncludedByDefault Remove="wwwroot\js\Zermos-Notes\trix.js" />
-        <_ContentIncludedByDefault Remove="wwwroot\js\Zermos-Notes\zermos-mindmap.js" />
-        <_ContentIncludedByDefault Remove="Views\Microsoft\Onderive.cshtml" />
-        <_ContentIncludedByDefault Remove="Views\Microsoft\OnedriveFolder.cshtml" />
-        <_ContentIncludedByDefault Remove="wwwroot\images\feature-banner.png" />
-        <_ContentIncludedByDefault Remove="wwwroot\images\hero.png" />
-        <_ContentIncludedByDefault Remove="wwwroot\images\icon192x192-curved.png" />
-        <_ContentIncludedByDefault Remove="wwwroot\images\icon512x512-curved.png" />
-        <_ContentIncludedByDefault Remove="wwwroot\images\icon512x512.png" />
-        <_ContentIncludedByDefault Remove="wwwroot\images\Loading-Icon-by-Kanggraphic-27-580x386-removebg-preview.png" />
-        <_ContentIncludedByDefault Remove="wwwroot\images\sketch-1698945362355.png" />
-        <_ContentIncludedByDefault Remove="wwwroot\images\statisics line - 1.png" />
-        <_ContentIncludedByDefault Remove="wwwroot\images\white-curved.jpeg" />
-        <_ContentIncludedByDefault Remove="Views\Error\404.cshtml" />
-        <_ContentIncludedByDefault Remove="Views\Error\Error.cshtml" />
-        <_ContentIncludedByDefault Remove="Views\Koppelingen\Index.cshtml" />
-        <_ContentIncludedByDefault Remove="Views\Koppelingen\Infowijs.cshtml" />
-        <_ContentIncludedByDefault Remove="Views\Koppelingen\InfowijsNietGekoppeld.cshtml" />
-        <_ContentIncludedByDefault Remove="Views\Koppelingen\InfowijsQr.cshtml" />
-        <_ContentIncludedByDefault Remove="Views\Koppelingen\InfowijsWithEmail.cshtml" />
-        <_ContentIncludedByDefault Remove="Views\Koppelingen\Somtoday.cshtml" />
-        <_ContentIncludedByDefault Remove="Views\Koppelingen\SomtodayNietGekoppeld.cshtml" />
-        <_ContentIncludedByDefault Remove="Views\Koppelingen\Zermelo.cshtml" />
-        <_ContentIncludedByDefault Remove="Views\Koppelingen\ZermeloNietGekoppeld.cshtml" />
-        <_ContentIncludedByDefault Remove="Views\Koppelingen\ZermeloWithCode.cshtml" />
-        <_ContentIncludedByDefault Remove="Views\Koppelingen\ZermeloWithQr.cshtml" />
-        <_ContentIncludedByDefault Remove="Views\School\informatiebord.cshtml" />
-        <_ContentIncludedByDefault Remove="Views\Authentication\Login.cshtml" />
-        <_ContentIncludedByDefault Remove="Views\Account\Account.cshtml" />
-        <_ContentIncludedByDefault Remove="Views\Account\Debug.cshtml" />
-        <_ContentIncludedByDefault Remove="Views\Account\Settings.cshtml" />
-        <_ContentIncludedByDefault Remove="Views\Infowijs\Schoolkalender.cshtml" />
-        <_ContentIncludedByDefault Remove="Views\Infowijs\Schoolnieuws.cshtml" />
-        <_ContentIncludedByDefault Remove="Views\Zermelo\GedeeldRooster.cshtml" />
-        <_ContentIncludedByDefault Remove="Views\Zermelo\Rooster-week.cshtml" />
-        <_ContentIncludedByDefault Remove="Views\Zermelo\Rooster.cshtml" />
-        <_ContentIncludedByDefault Remove="Views\Zermelo\SmartwatchRooster.cshtml" />
-        <_ContentIncludedByDefault Remove="Views\Somtoday\Cijfer.cshtml" />
-        <_ContentIncludedByDefault Remove="Views\Somtoday\Cijfers.cshtml" />
-        <_ContentIncludedByDefault Remove="Views\Somtoday\CijferStatestieken.cshtml" />
-        <_ContentIncludedByDefault Remove="Views\Somtoday\GedeeldeCijfers.cshtml" />
-        <_ContentIncludedByDefault Remove="Views\Somtoday\Huiswerk.cshtml" />
+      <Folder Include="Models\" />
     </ItemGroup>
 
     <ItemGroup>
-        <PackageReference Include="ChartJS" Version="23.1.7" />
-        <PackageReference Include="ChartJSCore" Version="3.10.1" />
-        <PackageReference Include="MessagePack" Version="2.6.100-alpha" />
         <PackageReference Include="Microsoft.AspNetCore.Razor.Runtime" Version="2.2.0" />
-        <PackageReference Include="Microsoft.EntityFrameworkCore" Version="7.0.15" />
-        <PackageReference Include="Microsoft.EntityFrameworkCore.Abstractions" Version="7.0.15" />
-        <PackageReference Include="Microsoft.EntityFrameworkCore.Analyzers" Version="7.0.15" />
-        <PackageReference Include="Microsoft.EntityFrameworkCore.Design" Version="7.0.15">
-            <PrivateAssets>all</PrivateAssets>
-            <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
-        </PackageReference>
-        <PackageReference Include="Microsoft.EntityFrameworkCore.Relational" Version="7.0.15" />
-        <PackageReference Include="Microsoft.EntityFrameworkCore.Tools" Version="7.0.15">
-            <PrivateAssets>all</PrivateAssets>
-            <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
-        </PackageReference>
-        <PackageReference Include="MySql.Data" Version="8.2.0" />
-        <PackageReference Include="Newtonsoft.Json" Version="13.0.3" />
-        <PackageReference Include="Selenium.WebDriver" Version="4.18.1" />
-        <PackageReference Include="WebDriverManager" Version="2.17.2" />
     </ItemGroup>
 
     <ItemGroup>
       <None Include="appsettings.json" />
-      <None Include="Properties\Web.config">
-        <ExcludeFromSingleFile>true</ExcludeFromSingleFile>
-        <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-        <CopyToPublishDirectory>PreserveNewest</CopyToPublishDirectory>
-      </None>
-    </ItemGroup>
-
-    <ItemGroup>
-      <Folder Include="Models\" />
-      <Folder Include="wwwroot\css\" />
     </ItemGroup>
 </Project>
