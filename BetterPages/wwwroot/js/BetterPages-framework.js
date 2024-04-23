@@ -1,22 +1,23 @@
 ﻿const BetterPages = {
-    mainBeforeLoad: function (callback) {},
-    mainAfterLoad: function (callback) {},
-    mainBeforeUnload: function (callback) {},
+    mainBeforeLoad: function(callback) {},
+    mainAfterLoad: function(callback) {},
+    mainBeforeUnload: function(callback) {},
+    loadingScreenDelay: 0
 };
 
-let main ;
+let main;
 let content;
 let isRunning = false;
 
-function onPageLoad() {
-    waitForObject(BetterPages, function () {
-        main = document.getElementById("main");
-        content = document.getElementById("content");
 
-        history.replaceState(null, null, "/");
-        ReplacePage((document.cookie.split(';').find(c => c.includes("page_to_load")).split('=')[1]));
-    }, 500);
-}
+waitForObject(BetterPages, function() {
+    main = document.getElementById("main");
+    content = document.getElementById("content");
+
+    history.replaceState(null, null, "/");
+    ReplacePage((document.cookie.split(';').find(c => c.includes("page_to_load")).split('=')[1]));
+}, 500);
+
 
 function ReplacePage(url) {
     if (isRunning) {
@@ -103,73 +104,75 @@ function ReplacePage(url) {
 
 
             //add a delay from here till the closing of this function if you want to show a loading screen      
+            setTimeout(() => {
 
+                // Remove all items with id added-by-fetch (scripts and stylesheets used in the previous page)
+                const elements = document.querySelectorAll("#added-by-fetch");
+                elements.forEach(element => element.remove());
 
-            // Remove all items with id added-by-fetch (scripts and stylesheets used in the previous page)
-            const elements = document.querySelectorAll("#added-by-fetch");
-            elements.forEach(element => element.remove());
+                // Update main content
+                main.outerHTML = '<main id="main"></main>';
+                main = document.getElementById("main");
+                main.innerHTML = stripTag("link", stripTag("script", data));
 
-            // Update main content
-            main.outerHTML = '<main id="main"></main>';
-            main = document.getElementById("main");
-            main.innerHTML = stripTag("link", stripTag("script", data));
+                const html = new DOMParser().parseFromString(data, 'text/html');
+                const scripts = html.getElementsByTagName("script");
 
-            const html = new DOMParser().parseFromString(data, 'text/html');
-            const scripts = html.getElementsByTagName("script");
-
-            // Append all scripts to the head or body
-            for (let i = 0; i < scripts.length; i++) {
-                if (scripts[i].src) {
-                    appendScript(document.head, scripts[i], true);
-                } else {
-                    appendScript(document.body, scripts[i], false);
+                // Append all scripts to the head or body
+                for (let i = 0; i < scripts.length; i++) {
+                    if (scripts[i].src) {
+                        appendScript(document.head, scripts[i], true);
+                    } else {
+                        appendScript(document.body, scripts[i], false);
+                    }
                 }
-            }
 
-            // Append all stylesheets to the head
-            const links = html.getElementsByTagName("link");
-            let amountOfStylesheets = links.length;
-            for (let i = 0; i < links.length; i++) {
-                if (links[i].rel === "stylesheet") {
-                    const link = appendStylesheet(links[i].href);
-                    watchForLoading(link);
+                // Append all stylesheets to the head
+                const links = html.getElementsByTagName("link");
+                let amountOfStylesheets = links.length;
+                for (let i = 0; i < links.length; i++) {
+                    if (links[i].rel === "stylesheet") {
+                        const link = appendStylesheet(links[i].href);
+                        watchForLoading(link);
+                    }
                 }
-            }
 
-            function watchForLoading(link) {
+                function watchForLoading(link) {
+                    const interval = setInterval(function() {
+                        try {
+                            if (link.sheet != null && link.sheet.cssRules.length > 0) {
+                                clearInterval(interval);
+                                amountOfStylesheets--;
+                            }
+                        } catch (e) {}
+                    }, 50);
+                }
+
+                //wait till all stylesheets are loaded
                 const interval = setInterval(function() {
-                    try {
-                        if (link.sheet != null && link.sheet.cssRules.length > 0) {
-                            clearInterval(interval);
-                            amountOfStylesheets--;
-                        }
-                    } catch (e) {}
+                    if (amountOfStylesheets === 0) {
+                        clearInterval(interval);
+                    }
                 }, 50);
-            }
 
-            //wait till all stylesheets are loaded
-            const interval = setInterval(function() {
-                if (amountOfStylesheets === 0) {
-                    clearInterval(interval);
-                }
-            }, 50);
+                // Update the URL to be [base]/#/path
+                window.location.hash = url.replace("?no-framework", "").replace("&no-framework", "");
+                BetterPages.mainBeforeLoad();
+                BetterPages.mainBeforeLoad = () => {};
 
-            // Update the URL to be [base]/#/path
-            window.location.hash = url.replace("?no-framework", "").replace("&no-framework", "");
-            BetterPages.mainBeforeLoad();
-            BetterPages.mainBeforeLoad = () => {};
+                isRunning = false;
 
-            isRunning = false;
-
-            //add an delay arround here if you want to show a loading screen
-            BetterPages.mainAfterLoad();
-            BetterPages.mainAfterLoad = () => {};
+                setTimeout(() => {
+                    //add an delay arround here if you want to show a loading screen
+                    BetterPages.mainAfterLoad();
+                    BetterPages.mainAfterLoad = () => {};
+                }, BetterPages.loadingScreenDelay);
+            }, BetterPages.loadingScreenDelay);
 
         })
         .catch(error => {
             console.error('Fetch error:', error);
         });
-
 
 
     function handleFetchError() {
@@ -206,7 +209,7 @@ function waitForObject(obj, callback, interval = 100) {
     if (typeof obj !== 'undefined') {
         callback(obj);
     } else {
-        setTimeout(function () {
+        setTimeout(function() {
             waitForObject(obj, callback, interval);
         }, interval);
     }
