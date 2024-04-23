@@ -6,14 +6,16 @@ namespace BetterPages.Controllers
 {
     public class MainController : Controller
     {
+        string fallback = "/test";
+        
         public IActionResult Index(string url = null)
         {
             if (url != null)
-                ViewData["url"] = url;
+                HttpContext.Response.Cookies.Append("page_to_load", url);
             else if (HttpContext.Request.Cookies.ContainsKey("this_session_last_page"))
-                ViewData["url"] = HttpContext.Request.Cookies["this_session_last_page"];
+                HttpContext.Response.Cookies.Append("page_to_load", (HttpContext.Request.Cookies["this_session_last_page"] == "" ? fallback : HttpContext.Request.Cookies["this_session_last_page"]) ?? fallback);
             else
-                ViewData["url"] = "/";
+                HttpContext.Response.Cookies.Append("page_to_load", fallback);
 
             return View();
         }  

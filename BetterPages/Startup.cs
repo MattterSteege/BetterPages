@@ -31,7 +31,8 @@ namespace BetterPages
                 app.UseDeveloperExceptionPage();
             else
                 app.UseExceptionHandler("/Error");
-            
+
+            app.UseBetterPagesMiddleware();
             app.UseRateLimiter();
             app.UseForwardedHeaders();
             app.UseStaticFiles();
