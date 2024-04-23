@@ -2,6 +2,7 @@
 using System.IO;
 using System.Text;
 using System.Threading.Tasks;
+using BetterPages.Controllers;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Http;
 
@@ -15,9 +16,7 @@ public class BetterPagesMiddleware
     {
         _next = next;
     }
-
-    string AddedScript = "    <script src=\"js/BetterPages-framework.js\" onload=\"onPageLoad()\"></script>\n";
-
+    
     public async Task Invoke(HttpContext context)
     {
         if (context.Request.Path != "/")
@@ -63,7 +62,7 @@ public class BetterPagesMiddleware
 
     private string AddScriptToHead(string htmlContent)
     {
-        const string scriptTag = "<script src=\"js/BetterPages-framework.js\"></script>";
+        const string scriptTag = "<script src=\"/BetterPages-framework.js\"></script>";
         const string headEndTag = "</head>";
 
         var indexOfHeadEnd = htmlContent.IndexOf(headEndTag, StringComparison.OrdinalIgnoreCase);
@@ -80,8 +79,11 @@ public class BetterPagesMiddleware
 
 public static class BetterPagesMiddlewareExtensions
 {
-    public static IApplicationBuilder UseBetterPagesMiddleware(this IApplicationBuilder builder)
+    public static IApplicationBuilder UseBetterPagesMiddleware(this IApplicationBuilder builder, string fallback = "/Main")
     {
+        //set the fallback page
+        BetterPagesController.fallback = fallback;
+        
         return builder.UseMiddleware<BetterPagesMiddleware>();
     }
 }

@@ -9,14 +9,15 @@ let main;
 let content;
 let isRunning = false;
 
+function InitBetterPages() {
+    waitForObject(BetterPages, function () {
+        main = document.getElementById("main");
+        content = document.getElementById("content");
 
-waitForObject(BetterPages, function() {
-    main = document.getElementById("main");
-    content = document.getElementById("content");
-
-    history.replaceState(null, null, "/");
-    ReplacePage((document.cookie.split(';').find(c => c.includes("page_to_load")).split('=')[1]));
-}, 500);
+        history.replaceState(null, null, "/");
+        ReplacePage((document.cookie.split(';').find(c => c.includes("page_to_load")).split('=')[1]));
+    }, 500);
+}
 
 
 function ReplacePage(url) {
